@@ -1,0 +1,16 @@
+.all-country-data {
+    margin: auto;
+}
+
+.card {
+    width: 18rem;
+    margin: auto;
+}
+
+.card-body {
+    text-align: left;
+}
+
+.flag {
+    height: 150px;
+}

@@ -5,6 +5,9 @@ import { StoreProvider, store } from './store';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import 'normalize.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 const root = ReactDOM.createRoot(

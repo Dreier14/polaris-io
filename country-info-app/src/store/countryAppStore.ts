@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { action, makeObservable, observable } from 'mobx';
-import { iCountryData } from '../interfaces/iCountryData';
+import axios from "axios";
+import { action, makeObservable, observable } from "mobx";
+import { iCountryData } from "../interfaces/iCountryData";
 
 export class CountryAppStore {
     @observable isLoading: boolean = true;
-    @observable countryData: iCountryData | undefined =  undefined;
+    @observable countryData: Array<iCountryData> | undefined = undefined;
 
     constructor() {
         makeObservable(this);
@@ -16,24 +16,26 @@ export class CountryAppStore {
     }
 
     @action
-    setCountryData(countryData: iCountryData | undefined): void {
+    setCountryData(countryData: Array<iCountryData> | undefined): void {
         this.countryData = countryData;
     }
 
     @action
-    async getCountryData(): Promise<void> {
+    async getAllCountryData(): Promise<void> {
         try {
             this.setIsLoading(true);
+            // We could create a helper function to also get the endpoint and configure it depending on the environment.
+            const response: Record<
+                string,
+                Array<iCountryData>
+            > = await axios.get("https://restcountries.com/v3.1/all");
 
-            // We could create a helper function to also get the endpoint and configure it depending on the environment
-            const response: iCountryData = await axios.get('https://restcountries.com/v3.1/all');
-            this.setCountryData(response);
-
+            this.setCountryData(response.data);
         } catch (e: any) {
+            // We want to have an error to the console for the developers if the API has an issue.
             console.error(e);
         } finally {
             this.setIsLoading(false);
         }
     }
-
 }

@@ -3,4 +3,5 @@ export interface iCountryData {
     capital: Array<string>;
     population: number;
     flags: Record<string, string>;
+    name: Record<string, string>;
 }
